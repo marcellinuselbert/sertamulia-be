@@ -4,9 +4,12 @@ const loadModel = require("./loadModel");
 const crypto = require("crypto");
 const predictClassification = require("./inferenceService");
 const storeData = require("./storeData");
+const cors = require("cors");
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 const upload = multer({
   limits: { fileSize: 1000000 },
