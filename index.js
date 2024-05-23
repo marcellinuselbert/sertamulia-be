@@ -3,6 +3,7 @@ const multer = require("multer");
 const loadModel = require("./loadModel");
 const crypto = require("crypto");
 const predictClassification = require("./inferenceService");
+const storeData = require("./storeData");
 
 const app = express();
 const port = 3000;
@@ -26,6 +27,9 @@ app.post("/predict", upload.single("image"), async (req, res) => {
           : "Tidak kena kanker",
       createdAt: new Date().toISOString(),
     };
+
+    await storeData(id, predictionResult);
+
     res.status(200).json({
       status: "success",
       message: "Model is predicted successfully",
